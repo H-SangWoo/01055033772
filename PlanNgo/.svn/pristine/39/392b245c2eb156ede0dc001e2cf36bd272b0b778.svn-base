@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.PackageBoardMapper">
+
+	<sql id="AgencySearch">
+
+		<if test="agencyType!= null">
+			<if test="agencyType == '노란풍선'.toString()">
+				AND
+				AGENCYNAME like '%'|| #{agencyType} || '%'
+			</if>
+			<if test="agencyType == '모두투어' .toString()">
+				AND
+				AGENCYNAME like '%'|| #{agencyType} || '%'
+			</if>
+			<if test="agencyType == '하나투어'.toString()">
+				AND
+				AGENCYNAME like '%'|| #{agencyType} || '%'
+			</if>
+
+		</if>
+	</sql>
+
+	<sql id="PriceSearch">
+		<if test="startPrice != null">
+			<if test="startPrice == 'all'.toString()">
+				AND
+				PRICE >= 0
+			</if>
+			<if test="startPrice == '100000'.toString()">
+				AND
+				PRICE >= #{startPrice}
+			</if>
+			<if test="startPrice == '150000' .toString()">
+				AND
+				PRICE >= #{startPrice}
+			</if>
+			<if test="startPrice == '200000'.toString()">
+				AND
+				PRICE >= #{startPrice}
+			</if>
+
+		</if>
+	</sql>
+
+	<sql id="DateSearch">
+
+		<if test="startDate != null and endDate != null ">
+		<if test="startDate != '' and endDate != '' ">
+		<![CDATA[ 
+			AND
+			STARTDATE >= #{startDate}
+			AND
+			ENDDATE <= #{endDate}
+			]]>
+		</if>
+		</if>
+	</sql>
+
+
+
+
+	<select id="listSearchCriteria" resultType="PackageVO">
+<![CDATA[  
+
+  
+  SELECT * FROM
+	  (SELECT ROWNUM RN, P.*
+		  FROM 
+		  (SELECT *
+		  	FROM PACKAGE 
+		  	ORDER BY PACKAGEID DESC) P
+		  	WHERE 
+  			PACKAGEID > 0
+]]>
+		<include refid="AgencySearch"></include>
+		<include refid="PriceSearch"></include>
+		<include refid="DateSearch"></include>
+
+		<!-- <include refid="DateSearch"></include> -->
+<![CDATA[    
+ ) WHERE RN BETWEEN #{pageStart} +1 AND #{perPageNum} + #{pageStart}
+]]>
+
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+<![CDATA[  
+  select count(packageid) 
+  from package
+  where
+  PACKAGEID > 0
+]]>
+		<include refid="AgencySearch"></include>
+		<include refid="PriceSearch"></include>
+		<include refid="DateSearch"></include>
+
+
+	</select>
+
+<select id="insert">
+<![CDATA[  
+
+ INSERT INTO PACKAGE(PACKAGEID,AGENCYNAME,title,startDate, endDate, price, packagecontent, files) 
+ values (packageid.nextval,#{AGENCYNAME},#{TITLE},#{STARTDATE},#{ENDDATE},#{PRICE},#{PACKAGECONTENT},#{files})
+ 
+]]>
+	</select>
+	
+<select id = "read" resultType="PackageVO">
+<![CDATA[ 
+Select * from PACKAGE WHERE PACKAGEID = #{pno}
+]]>
+</select>
+
+
+<select id = "deletePackage">
+<![CDATA[ 
+delete from PACKAGE where PACKAGEID = #{pno}
+]]>
+
+</select>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+		<!-- HikariCP configuration -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@118.128.215.183:1521:xe"></property>
+		<property name="username" value="SCOTT"></property>
+		<property name="password" value="TIGER"></property>
+	</bean>
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	  <property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- SQL SESSION 자체를 안만듬 -->
+	<mybatis-spring:scan base-package="org.planngo.mapper" />
+	<context:component-scan base-package="org.planngo.service"></context:component-scan>
+	
+	<!-- qna 이메일 보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.naver.com" />
+	<property name="port" value="587" />
+	<property name="username" value="wndud7965@naver.com" />
+	<property name="password" value="qlalfqjsgh6736" />
+	<property name="javaMailProperties">
+		<props>
+		    <prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			<prop key="mail.smtps.checkserveridentity">true</prop>
+			<prop key="mail.smtps.ssl.trust">*</prop>
+			<prop key="mail.debug">true</prop>
+			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		</props>
+	</property>
+</bean>
+	
+	
+	
+	
+	
+</beans>

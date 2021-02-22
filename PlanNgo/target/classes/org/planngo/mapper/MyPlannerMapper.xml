@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.MyPlannerMapper">
+
+	<sql id="search">
+		<if test="searchType!=null">
+			<if test="searchType == 'title'.toString()">
+				and UPPER(PLANTITLE) like '%' || UPPER(#{keyword}) || '%'
+			</if>
+			<if test="searchType == 'writer'.toString()">
+				and UPPER(USRNICKNAME) like '%' || UPPER(#{keyword}) || '%'
+			</if>
+		</if>
+	</sql>
+
+	<select id="listPlanCriteria" resultType="org.planngo.dto.PlannerDTO">
+	
+	<![CDATA[
+		SELECT PLANCODE, USRNICKNAME, PLANTITLE, CITYIMAGE, USRCODE FROM 
+			(SELECT ROWNUM RN, MYPLANVIEW.* FROM 
+				(SELECT M.*, LOC.CITYIMAGE FROM MYDPS M, LOCATION LOC 
+    				WHERE M.DAY = 1 AND M.PLANSCHEDULEORDER = 1 
+    				AND M.LOCATIONCODE = LOC.LOCATIONCODE AND M.USRCODE = #{USRCODE}
+	]]>
+		<include refid="search"></include>		
+	<![CDATA[
+				ORDER BY m.PLANCODE desc) MYPLANVIEW
+			)
+			WHERE RN BETWEEN #{pageStart} +1 AND  #{perPageNum} + #{pageStart}
+	]]>
+	
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(PLANCODE) FROM
+				(SELECT * FROM 
+					(SELECT ROWNUM RN, MYPLANVIEW.* FROM
+						(SELECT M.*, LOC.CITYIMAGE FROM MYDPS M, LOCATION LOC
+							WHERE M.DAY = 1 AND M.PLANSCHEDULEORDER = 1
+							AND M.LOCATIONCODE = LOC.LOCATIONCODE AND M.PLANCODE > 0
+							AND M.USRCODE = #{USRCODE}
+		]]>
+			<include refid="search"></include>			
+		<![CDATA[
+			ORDER BY M.PLANCODE DESC) MYPLANVIEW ))
+			WHERE PLANCODE > 0
+		]]>
+	</select>
+	
+	<select id="listShareCriteria" resultType="org.planngo.domain.PlanBoardVO">
+		
+		<![CDATA[
+		SELECT PLANBOARDCODE, PLANCODE, USRNICKNAME, PLANTITLE, CITYIMAGE, USRCODE FROM
+			(SELECT ROWNUM RN, SHAREPLANVIEW.* FROM
+				(SELECT P.* FROM PLANLISTVIEW P
+					WHERE P.DAY = 1 AND P.PLANSCHEDULEORDER = 1
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+					ORDER BY P.PLANBOARDCODE DESC) SHAREPLANVIEW
+				)
+				WHERE RN BETWEEN #{pageStart} + 1 AND #{perPageNum} + #{pageStart}
+					 
+		]]> 
+	</select>
+	
+	<select id="listShareSearchCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(PLANBOARDCODE) FROM
+				(SELECT PLANBOARDCODE, PLANCODE, USRNICKNAME, PLANTITLE, CITYIMAGE, USRCODE FROM
+					(SELECT ROWNUM RN, SHAREPLANVIEW.* FROM
+						(SELECT P.* FROM PLANLISTVIEW P
+							WHERE P.DAY = 1 AND P.PLANSCHEDULEORDER = 1
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+			ORDER BY P.PLANBOARDCODE DESC) SHAREPLANVIEW))
+			WHERE PLANBOARDCODE > 0
+		]]>
+	</select>
+	
+	<select id="readPlan" resultType="org.planngo.dto.PlannerDTO">		
+	    SELECT M.*, LOC.CITYIMAGE FROM MYDPS M, LOCATION LOC
+	    WHERE 
+	    M.LOCATIONCODE = LOC.LOCATIONCODE
+	    AND M.PLANCODE = #{PLANCODE} 
+	    AND DAY = 1
+	    AND PLANSCHEDULEORDER = 1
+	</select>
+	
+	<select id="getDays" resultType="org.planngo.domain.DaysVO">
+		SELECT * FROM DAYS 
+		WHERE PLANCODE = #{PLANCODE} 
+		ORDER BY DAY
+	</select>
+	
+	<select id="getScheduleLists" resultType="org.planngo.domain.PlanScheduleVO">
+		SELECT PLANSCHEDULECODE, PLANSCHEDULEORDER, LOCATIONCITY FROM MYPLANOJ
+		WHERE PLANCODE = #{PLANCODE}
+		AND DAYSCODE = #{DAYSCODE}
+		GROUP BY PLANSCHEDULECODE, PLANSCHEDULEORDER, LOCATIONCITY
+		ORDER BY PLANSCHEDULEORDER
+	</select>
+	
+	<select id="isShared" resultType="int">
+		SELECT COUNT(*) FROM PLANBOARD 
+		WHERE USRCODE = #{USRCODE} 
+		AND PLANCODE = #{PLANCODE}
+	</select>
+	
+	<select id="shareRegist" resultType="org.planngo.dto.SharedDTO">
+		INSERT INTO PLANBOARD 
+		VALUES(PLANBOARDSEQ.nextval, #{USRCODE}, #{PLANCODE})
+	</select>
+	
+	<select id="getBucketLists" resultType="org.planngo.domain.BucketListVO">
+		SELECT M.PLANSCHEDULECODE,M.ACTIVITYCODE,A.ACTIVITYNAME
+		FROM MYPSBLOJ M,ACTIVITY A
+		WHERE M.ACTIVITYCODE=A.ACTIVITYCODE
+		AND M.PLANCODE = #{PLANCODE}
+		AND M.DAY = #{DAY}
+		AND M.PLANSCHEDULEORDER = #{PLANSCHEDULEORDER}	
+	</select> 
+	
+
+	<!-- <select id="countPaging" resultType="int"> <![CDATA[ select count(packageno) 
+		from packages where packageno > 0 ]]> </select> -->
+
+
+</mapper>

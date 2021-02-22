@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.nBoardMapper">
+
+	<sql id="search">
+
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND UPPER(NOTICETITLE) like '%'|| UPPER(#{keyword}) || '%'
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				AND (UPPER(NOTICETITLE) like '%'|| UPPER(#{keyword}) || '%') OR UPPER(NOTICECONTENT) like '%'|| UPPER(#{keyword}) || '%'
+			</if>
+		</if>
+
+	</sql>
+
+
+	<select id="listSearchCriteria"
+		resultType="org.planngo.domain.NoticeVO">
+		<![CDATA[  
+			  SELECT * FROM
+	  			(SELECT ROWNUM RN, DATA.*
+		  		FROM 
+		 		 (SELECT N.*, U.USRNAME
+		  			FROM NOTICE N, USR U 
+		  			WHERE N.USRCODE = U.USRCODE ORDER BY NOTICECODE DESC) DATA
+		  			WHERE NOTICECODE > 0
+		]]>
+
+		<include refid="search"></include>
+  
+		<![CDATA[    
+  		) WHERE RN BETWEEN #{pageStart} +1 AND #{perPageNum} + #{pageStart}
+		]]>
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[  
+  			SELECT COUNT(NOTICECODE) 
+  			FROM NOTICE
+  			WHERE
+  			NOTICECODE > 0 
+		]]>
+		<include refid="search"></include>
+	</select>
+	
+ 	<insert id = "regist">
+	<![CDATA[
+		INSERT INTO NOTICE(NOTICECODE
+		, USRCODE
+		, NOTICETITLE
+		, NOTICECONTENT)
+		VALUES (NOTICECODESEQ.nextval, #{USRCODE}, #{NOTICETITLE}, #{NOTICECONTENT})
+	]]>	
+	</insert>
+	
+	<select id="read" resultType="org.planngo.domain.NoticeVO">
+	<![CDATA[
+		SELECT N.*, U.USRNAME
+		FROM NOTICE N, USR U
+		WHERE N.USRCODE = U.USRCODE AND NOTICECODE = #{NOTICECODE}
+	]]>
+	</select>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE NOTICE SET NOTICETITLE = #{NOTICETITLE},
+						  NOTICECONTENT = #{NOTICECONTENT}
+		WHERE NOTICECODE = #{NOTICECODE} 
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM NOTICE WHERE NOTICECODE = #{NOTICECODE}
+	]]>
+	</delete>
+	
+</mapper>

@@ -1,0 +1,460 @@
+#buttonSubmit {
+	width:100px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px;
+    cursor: pointer;
+}
+.modal {
+    display: none;
+    vertical-align: middle;
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    box-sizing: border-box;
+    width: 90%;
+    background: #fff;
+    padding: 15px 30px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 0 10px #000;
+    -moz-box-shadow: 0 0 10px #000;
+    -o-box-shadow: 0 0 10px #000;
+    -ms-box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #000;
+    text-align: left;
+    height: 800px;
+    
+}
+
+.buketlist-item{
+	
+	overflow: scroll;
+    height: 100%;
+    
+}
+.bucketlist-li{
+	
+	margin: 8px;
+    display: inline-block;
+    border: solid 2px;
+    border-radius: 5px;
+    
+}
+
+.bucketlist-item-name {
+	text-align: center;
+	font-family: TmonMonsori, "GodoB", "굴림";
+	font-size: 15px;
+}
+
+.bucketlist-li img {
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.make-plan {
+	width: 100%;
+	height: 100%;
+}
+
+.make-plan-top {
+	border-top: solid #4eb1e4 2px;
+	border-bottom: solid #4eb1e4 2px;
+	height: 65px !important;
+}
+
+.make-plan-middle {
+	display: flex;
+}
+
+.make-plan-left {
+	width: 450px;
+	height: 900px;
+	float: left;
+	height: 100%;
+	z-index: 1;
+}
+
+.make-plan-left-daylist {
+	float: left;
+}
+
+.make-plan-left-schedulelist {
+	overflow-y: scroll;
+	float: left;
+	width: 270px;
+    height: 800px;
+}
+
+.make-plan-left-schedulelist ul {
+	padding: 0px;
+	list-style-type: none;
+	width: 269px;
+	list-style-type: none;
+}
+
+.daylist-top {
+	width: 180px;
+	height: 100%;
+	text-align: center;
+	background: rgb(32, 51, 65);
+}
+
+.daylist-days {
+	width: 180px;
+	height: 720.5px;
+	overflow-y: scroll;
+
+}
+
+.buketlist-item a{
+	position: relative;
+    left: 50%;
+    font-size: 18px;
+}
+    
+    
+.daylist-days .day {
+	position: relative;
+	top: 25%;
+	color: #fff;
+	font-size: 25px;
+	font-weight: bold;
+}
+.checkimg{
+	position: relative;
+    /* left: 50%; */
+    float: left;
+    left: 94%;		
+    z-index: 1;		
+}
+.fa-check-circle:before {
+    content: "\f058";
+    position: absolute;
+}	
+
+.item-wrapper{
+	cursor: pointer;
+	position: relative;
+}
+.checked {
+	z-index: 1;
+    background: url(/resources/images/checked.png);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    float: left;
+    left: 35%;
+    top: 30%;
+}
+.daylist-days ul {
+	padding:0px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	list-style-type: none;
+}
+
+.daylist-days ul li {
+	width: 100%;
+	height: 70px;
+	background: #305361;
+	color: #fff;
+	text-align: center;
+	border-bottom: solid 1px #071824;
+	cursor: pointer;
+	position: relative;
+	top: 25%;
+	font-size: 25px;
+	font-weight: bold;
+	
+}
+.activeli{
+	width: 100%;
+	height: 70px;
+	background: #000000 !important;
+	color: #fff;
+	text-align: center;
+	border-bottom: solid 1px #071824;
+	cursor: pointer;
+	position: relative;
+	top: 25%;
+	font-size: 25px;
+	font-weight: bold;
+	
+}
+.daylist-days ul li p{
+	margin: 0px;
+
+}
+
+.schedule-item {
+	display: flex;
+	padding: 15px;
+	border-bottom: solid #a7a7a7 1px;
+	background: #fff;
+	width: 100%;
+	position: relative;
+	padding: 15px;
+	padding-left: 0;
+	padding-right: 0;
+	
+	
+}
+
+.schedule-item-img {
+	width: 73px;
+	height: 71px;
+	position: relative;
+	cursor: pointer;
+}
+
+.schedule-item-img img {
+	top: 6px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+}
+
+.schedule-item-info-wrap .schedule-item-info {
+	display: block;
+}
+
+#planTitle{
+	border-color: green;
+	margin-top: 10px;
+	font-size: 30px;
+	
+}
+.schedule-item-info-wrap .ctrl-box {
+	position: absolute;
+	bottom: 5px;
+	right: 7px;
+}
+
+.schedule-item-info-wrap .ctrl-box .bucket {
+	margin-right: 30px;
+	float: left;
+	cursor: pointer;
+}
+
+.bucketimg{
+	margin-left: 0px;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+.schedule-item-info-wrap .ctrl-box .delete {
+	float: left;
+}
+
+.schedule-item-info .title {
+	margin-left: 10px;
+}
+
+.make-plan-right {
+	height: 800px;
+	flex-grow: 1;
+	float: right;
+	z-index: 1;
+	
+}
+
+#add-day {
+	width: 124px;
+	height: 32px;
+	line-height: 32px;
+	border: solid 1px #fff;
+	text-align: center;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+	clear: both;
+	border: solid 1px;
+	z-index: 5;
+}
+
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	height: 132px;
+	margin-left: -144px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '����', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+.closeschedule {
+	position: absolute;
+	top: 3px;
+	right: 0px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	cursor: pointer;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+.daydelete {
+	position: absolute;
+	top: 0px;
+	right: 3px;
+	color: #eee;
+	width: 17px;
+	height: 17px;
+	cursor: pointer;
+}
+.info .add {
+	position: absolute;
+	top: 9px;
+	right: 35px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background: url('../data/add.png');
+}
+
+.info .add:hover {
+	cursor: pointer;
+}
+
+.info .close:hover {
+	cursor: pointer;
+}
+
+.info .body {
+	position: relative;
+	overflow: hidden;
+	height: 200px;
+}
+
+.info .desc {
+	position: relative;
+	margin: 13px 0 0 90px;
+	height: 75px;
+}
+
+.desc .ellipsis {
+	overflow: hidden;
+	text-overflow: auto;
+	white-space: break-spaces;
+}
+
+.info .img {
+	position: absolute;
+	top: 6px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+	overflow: visable;
+}
+
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.info .link {
+	color: #5085BB;
+}
+
+/* bucket */
+.activityList{
+  position: relative;
+  color:red;
+  float: right;
+  border: 1px solid #ff0000;
+}
+
+
+
+/*태경  */
+/*날짜 */
+.make-planner-date-list {
+	float: left;
+	width: 30%;
+	height: 100%;
+	border-right: solid 1px;
+}
+
+#date-submit{
+	display: true;
+}
+
+#btn-day-add{
+	display: none; 
+	
+}
+
+

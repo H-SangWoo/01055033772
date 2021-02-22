@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.faqMapper">
+
+    <insert id="writeFaq">
+		INSERT INTO FAQ (FAQCODE, USRCODE, FAQTITLE, FAQCONTENT) 
+		VALUES (FAQSEQ.nextval, #{USRCODE}, #{FAQTITLE},#{FAQCONTENT})
+	</insert>
+ 
+ 
+ <!-- #{USRCODE} -->
+ 
+ <select id="readFaq" parameterType="int" resultType="faqVO">
+		SELECT	FAQCODE
+			  , FAQTITLE
+			  , FAQCONTENT
+			  , USRCODE
+		 FROM FAQ
+		 WHERE FAQCODE = #{FAQCODE}
+	</select>
+ 
+ <update id="modifyFaq" parameterType="faqVO">
+		UPDATE FAQ
+		   SET FAQTITLE    =   #{FAQTITLE}
+		  , FAQCONTENT  =   #{FAQCONTENT}
+		 WHERE FAQCODE = #{FAQCODE}
+	</update>
+	
+	 <delete id="deleteFaq">
+ delete from FAQ where FAQCODE = #{FAQCODE}
+ </delete>
+ 
+  <sql id="faqsearch">
+	<if test="searchType != null">
+		<if test="searchType == 't'.toString()">
+			AND FAQTITLE like '%'|| #{keyword} || '%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND FAQCONTENT like '%'|| #{keyword} || '%'
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND ( FAQTITLE like '%'|| #{keyword} || '%' ) OR (FAQCONTENT like '%'|| #{keyword} || '%')
+		</if>
+	</if>
+</sql>
+
+
+<select id="faqlistSearchCriteria"	resultType="faqVO">
+<![CDATA[  
+
+ SELECT * FROM
+	  (SELECT ROWNUM NUM, F.*
+		  FROM 
+		  (SELECT *
+		  	FROM FAQ 
+		  	ORDER BY FAQCODE DESC) F
+		  	WHERE 
+  			FAQCODE > 0
+  
+]]>
+		<include refid="faqsearch"></include>
+		<!-- <include refid="LocationSearch"></include> <include refid="PriceSearch"></include> 
+			<include refid="DateSearch"></include> -->
+  
+<![CDATA[    
+ )WHERE NUM BETWEEN #{pageStart}+1 AND #{perPageNum} + #{pageStart}
+]]>
+
+</select>
+
+
+<select id="faqlistSearchCount" resultType="int">
+<![CDATA[  
+  select count(FAQCODE) 
+  from FAQ
+  where
+  FAQCODE > 0
+]]>
+  <include refid="faqsearch"></include>
+ 
+</select>  
+</mapper>

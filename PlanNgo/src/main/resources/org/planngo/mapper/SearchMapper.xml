@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.SearchMapper">
+
+	<sql id="LocationProvince">
+
+		<if test="locationProvince != null">
+			<if test="locationProvince == '수도권'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+			<if test="locationProvince == '강원도'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+			<if test="locationProvince == '충청도'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+			<if test="locationProvince == '경상도'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+			<if test="locationProvince == '전라도'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+			<if test="locationProvince == '제주도'.toString()">
+				AND
+				locationProvince like '%'|| #{locationProvince} || '%'
+			</if>
+		</if>
+	</sql>
+
+	<sql id="LocationCity">
+
+		<if test="locationCity != null">
+			<if test="locationCity == '서울특별시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '안양시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '인천광역시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '강릉시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '태백시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '속초시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '충주시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '공주시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '포항시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '나주시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '전주시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '목포시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '제주시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '부산광역시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '천안시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+			<if test="locationCity == '울산광역시'.toString()">
+				AND
+				locationCity like '%'|| #{locationCity} || '%'
+			</if>
+
+		</if>
+
+	</sql>
+
+	<sql id="ActivityType">
+
+		<if test="activityType != null">
+			<if test="activityType == '액티비티'.toString()">
+				AND
+				activityType like '%'|| #{activityType} || '%'
+			</if>
+			<if test="activityType == '먹거리'.toString()">
+				AND
+				activityType like '%'|| #{activityType} || '%'
+			</if>
+			<if test="activityType == '관광지'.toString()">
+				AND
+				activityType like '%'|| #{activityType} || '%'
+			</if>
+		</if>
+	</sql>
+
+
+	<select id="listLocationSearch" resultType="LocationVO">
+		<![CDATA[  
+		  SELECT * FROM LOCATION
+		  	WHERE LOCATIONCODE > 0
+		]]>
+		<include refid="LocationProvince"></include>
+
+	</select>
+
+
+	<select id="listActivitySearchCriteria" resultType="ActivityVO">
+		<![CDATA[  
+		  SELECT * FROM ACTIVITY A, LOCATION L WHERE A.LOCATIONCODE = L.LOCATIONCODE 
+		]]>
+		<include refid="LocationCity"></include>
+		<include refid="ActivityType"></include>
+
+	</select>
+
+
+</mapper>

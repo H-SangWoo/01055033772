@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.PlannerMapper">
+
+	<!-- PLAN -->
+	<insert id="registerPlan">
+
+		INSERT INTO PLAN(
+		PLANCODE,
+		USRCODE,
+		PLANSTARTDATE,
+		PLANENDDATE,
+		PLANTITLE)
+		VALUES(
+		PLANSEQ.NEXTVAL,
+		#{USRCODE},
+		#{PLANSTARTDATE},
+		#{PLANENDDATE},
+		#{PLANTITLE})
+
+	</insert>
+
+	<!-- DAYS -->
+	<insert id="registerDay">
+
+		INSERT INTO DAYS(
+		DAYSCODE,
+		PLANCODE,
+		DAY)
+		VALUES(
+		DAYSSEQ.NEXTVAL,
+		#{PLANCODE},
+		#{DAY})
+
+	</insert>
+
+	<!-- PLANSCHEDULE -->
+	<insert id="registerPlanSchedule">
+
+		INSERT INTO PLANSCHEDULE(
+		PLANSCHEDULECODE,
+		DAYSCODE,
+		LOCATIONCODE,
+		PLANSCHEDULEORDER)
+		VALUES(
+		PLANSCHEDULESEQ.NEXTVAL,
+		#{DAYSCODE},
+		#{LOCATIONCODE},
+		#{PLANSCHEDULEORDER})
+
+	</insert>
+	
+	<!-- BUCKETLIST -->
+	<insert id="registerBucketList">
+
+		INSERT INTO BUCKETLIST(
+		PLANSCHEDULECODE,
+		ACTIVITYCODE)
+		VALUES(
+		#{PLANSCHEDULECODE},
+		#{ACTIVITYCODE})
+
+	</insert>
+
+
+	<select id="getPlanCode" resultType="int">
+	<![CDATA[
+		select max(plancode) from plan
+	]]>
+	</select>
+
+	<select id="getDaysCode" resultType="int">
+	<![CDATA[
+		select max(dayscode) from days
+	]]>
+	</select>
+	
+	<select id="getPlanScheduleCode" resultType="int">
+	<![CDATA[
+		select max(planschedulecode) from planschedule
+	]]>
+	</select>
+
+	<select id="getLocationInfo" resultType="LocationVO">
+	<![CDATA[
+		select * from location
+	]]>
+	</select>
+
+	<select id="getActivityInfo" resultType="ActivityVO">
+	<![CDATA[
+		select * from activity
+	]]>
+	</select>
+	
+	<select id="getActivityInfoByCity" resultType="ActivityDTO">
+	<![CDATA[
+		select * from activityLoc WHERE LOCATIONCITY = #{LOCATIONCITY} 
+	]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.UserMapper">
+
+	<select id = "login" resultType="UsrVO">
+	
+		SELECT * FROM USR WHERE 
+		USRID = #{USRID} AND USRPASSWORD = #{USRPASSWORD}
+
+	</select>
+
+	<update id="keepLogin">
+
+		UPDATE USR SET SESSIONKEY = #{sessionId},
+		SESSIONLIMIT = #{next} WHERE USRID = #{USRID}
+
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="UsrVO">
+		SELECT * FROM USR WHERE SESSIONKEY = #{value} and SESSIONLIMIT > SYSDATE
+
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="register">
+
+		INSERT INTO USR(
+		USRCODE,
+		USRID,
+		USRNICKNAME,
+		USREMAIL,
+		USRPASSWORD,
+		USRNAME,
+		USRDOB,
+		USRGENDER )
+		VALUES(
+		USRCODE.NEXTVAL,
+		#{USRID},
+		#{USRNICKNAME},
+		#{USREMAIL},
+		#{USRPASSWORD},
+		#{USRNAME},
+		#{USRDOB},
+		#{USRGENDER})
+
+
+	</insert>
+
+	<select id="idChk" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM USR
+		WHERE USRID = #{USRID}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM USR
+		WHERE USRID = #{USRID}
+		AND USRPASSWORD = #{USRPASSWORD}
+	</delete>
+
+	<update id="update">
+		UPDATE USR SET
+		USRPASSWORD = #{USRPASSWORD}
+		WHERE USRID = #{USRID}
+	</update>
+
+
+	<select id="readUser" resultType="UsrVO">
+		SELECT * FROM USR WHERE
+		USRID = #{USRID}
+	</select>
+
+</mapper>

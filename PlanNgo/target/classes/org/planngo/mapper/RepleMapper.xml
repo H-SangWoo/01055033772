@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.planngo.mapper.RepleMapper">
+
+	<select id="listPage" resultType="RepleVO">
+		<![CDATA[
+		  SELECT * FROM
+	  			(SELECT ROWNUM RN, DATA.*
+		  		FROM 
+		 		 (SELECT R.*, U.USRNAME
+		  			FROM REPLE_NOTICE R, USR U 
+		  			WHERE R.USRCODE = U.USRCODE AND NOTICECODE = #{NOTICECODE} 
+		  			ORDER BY REPLECODE DESC) DATA	WHERE REPLECODE > 0) 
+		  			WHERE RN BETWEEN #{cri.pageStart}+1 AND #{cri.perPageNum} + #{cri.pageStart}
+		  ]]>		
+	</select>
+	
+	<insert id="create">
+	<![CDATA[
+		INSERT INTO REPLE_NOTICE (REPLECODE, USRCODE, NOTICECODE, REPLECONTENT)
+		VALUES (REPLESEQ.nextval, #{USRCODE}, #{NOTICECODE}, #{REPLECONTENT})
+		]]>		
+	</insert>
+	
+	<select id="count" resultType="int">
+		<![CDATA[
+		SELECT COUNT(NOTICECODE) from REPLE_NOTICE
+		where NOTICECODE = #{NOTICECODE}
+		]]>
+	</select>
+	
+	<update id="update">
+		<![CDATA[
+		UPDATE REPLE_NOTICE SET REPLECONTENT = #{REPLECONTENT},
+		REGDATE = SYSDATE WHERE REPLECODE = #{REPLECODE}
+		]]>
+	</update>
+	
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM REPLE_NOTICE WHERE REPLECODE = #{REPLECODE}
+		]]>
+	</delete>
+
+</mapper>

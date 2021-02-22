@@ -1,0 +1,217 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.wrap {
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/banner.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+.form-wrap {
+    width: 380px;
+    height: 650px;
+    position: relative;
+    margin: 1% auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+.button-wrap {
+    width: 110px;
+    margin: 35px auto;
+    position: relative;
+    
+}
+.togglebtn {
+    padding: 10px 36px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #ffad06;
+    border-radius: 30px;
+    transition: .5s;
+}
+.social-icons {
+    margin: 30px auto;
+    text-align: center;
+}
+.social-icons img {
+    width: 30px ;
+    cursor: pointer;
+}
+.input-group {
+    top: 180px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.id-area {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+.id-area > .id {
+   width: 65%;
+}
+
+.dupleBtn {
+   width: 23%;
+   height: 50%;
+   border: 1px solid #745bd9;
+   border-radius: 25px;
+   text-align: center;
+   line-height: 247%;   
+}
+
+.dupleBtn:hover {
+   cursor: pointer;
+}
+
+.submit {
+    width: 86%;
+    padding: 9px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 20px;
+    background: #ffad06;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+.submit2 {
+    width: 65%;
+    padding: 10px 30px;
+    margin: 20px;
+    cursor: pointer;
+    display: block;
+    background: #ffad06;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    text-align:center;
+}
+
+.submit3 {
+    width: 65%;
+    padding: 10px 30px;
+    margin: 5px 100 27px;
+    cursor: pointer;
+    display: block;
+    background: #ffad06;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    text-align:center;
+}
+.submit4 {
+    width: 65%;
+    padding: 10px 30px;
+    margin: 5px 100 27 20px;
+    cursor: pointer;
+    display: block;
+    background: #ffad06;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    text-align:center;
+}
+.dupchk{
+    width: 41%;
+    padding: 5px 30px;
+    margin: -36px 213px -5px;
+    cursor: pointer;
+    display: block;
+    background: #fbceb1;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    text-align:center;
+   
+}
+
+
+.checkbox {
+    margin: 30px 10px 30px 0;
+}
+span {
+    color: #777;
+    font-size: 12px;
+    bottom: 224px;
+    position: absolute;
+}
+#login {
+    left: 50px;
+}
+#searchPassword {
+	left: 50px;
+}
+#login a {
+   text-decoration: none;
+   color: #000;
+   font-size:12px;
+}
+#register {
+   width:97%;
+   margin: 0 auto;
+} 
+.test{
+   margin: 0 auto;
+}
+
+
+
+.input-field2 {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 50;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.input-field3{
+   width: 100%;
+    padding: 39px 0;
+    margin: 5px 140;
+    border: none;
+      outline: none;
+    background: transparent;
+   
+}
+.input-field4{
+   width: 100%;
+    padding: 20px 0;
+    margin: 5px 140;
+    border: none;
+      outline: none;
+    background: transparent;
+   
+}
+

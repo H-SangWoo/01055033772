@@ -1,0 +1,200 @@
+.share {
+	padding: 5em 0;
+}
+
+.share h3 {
+	text-align: center;
+	color: #83BFA6;
+	margin: 0 auto;
+	padding-bottom: 0.5em;
+	border-bottom: 7px double #DEDEDE;
+}
+
+@media (min-width: 320px) {
+	
+	.share h3 {
+		font-size: 1.5em;
+		width: 25%;
+	}
+	
+	.planner-create {
+		display: inline;
+	}
+	
+	.create-left {
+		width: 100%;
+	}
+	
+	.create-right {
+		margin-top: 1em;
+		width: 100%;
+	}
+	
+	.share-image {
+		margin-left : 0.8em;
+		margin-top: 2em;
+	}
+	
+	.planner-info {
+		padding: 0.5em;
+	}
+	
+	.create-body {
+		margin: 2em 0 4em;
+	}
+}
+
+@media (min-width: 760px) {
+	
+	.share h3 {
+		font-size: 2em;
+		width: 20%;
+	}
+	
+	.planner-create {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.create-left {
+		width: 50%;
+	}
+	
+	.create-right {
+		margin-top: 0;
+		width: 45%;
+	}
+	
+	.share-image {
+		margin-left : 1.5em;
+		margin-top: 2em;
+	}
+	
+	.planner-info {
+		padding: 0.5em;
+	}
+	
+	.create-body {
+		margin: 0.2em 0 2em;
+	}
+}
+
+@media(min-width: 1024px) {
+	.create-body {
+		margin: 2em 0 4em;
+	}
+	
+}
+
+.create-left {
+	
+}
+
+.create-left img {
+	width: 100%;
+	height: 100%;
+}
+
+.create-right {
+	padding: 2em;
+	
+	background: #f5f5f5;
+	border-radius: 6%;
+	border: 1px solid #efefef;
+}
+
+.create-header {
+	text-align: left;
+	font-size: 2em;
+}
+
+.create-body {
+	text-align: left;
+	font-size: 1em;
+}
+
+.create-right {
+	text-align: center;
+}
+
+.create-btn-wrapper {
+	width: 100%;
+	vertical-align: middle;
+}
+
+.create-planner-btn {
+	width: 100%;
+	border-radius: 2em;
+	border: 1px solid #ee685a;
+	color: #ee685a;
+	padding: 0.6em 1em;
+}
+
+.create-planner-btn:hover {
+	cursor: pointer;
+	background: #ee685a;
+	color: #fff;
+}
+
+.share-planner-container {
+	margin-top: 3em;
+	flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.share-image {
+	height: 100%;
+	width: 30%;
+	text-align: center;
+	border-radius: 5%;
+	border: 1px solid #000;
+	overflow: hidden;
+}
+
+.share-content {
+	width: 100%;
+	height: 100%;
+}
+
+.planner-image-box {
+	position: relative;
+}
+
+.share-content img {
+	object-fit: cover;
+	width: 100%;
+	cursor: pointer;
+	height: 15vw;
+}
+
+.planner-title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 1em 1em 0.5em 1em;
+	color: #fff;
+	background: linear-gradient( to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
+	text-align: left;
+}
+
+.planner-info {
+	color: #000;
+	background: #fff;
+	z-index: 9;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	align-items: center;
+}
+
+.info-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.info-body {
+	text-align: left;
+}
